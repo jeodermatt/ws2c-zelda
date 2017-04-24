@@ -4,6 +4,8 @@
 import processing.core.PApplet;
 
 public class main extends PApplet {
+    Link link = new Link(this);
+
     public static void main(String[] args){
         PApplet.main("main", args);
     }
@@ -14,12 +16,15 @@ public class main extends PApplet {
 
     public void setup(){
         background(255);
+
     }
 
     public void draw(){
+        background(255);
+        clear();
         stroke(0);
         fill(255,0,255);
         ellipse(width/2, height/2, 100, 100);
+        link.paint();
     }
-
 }
