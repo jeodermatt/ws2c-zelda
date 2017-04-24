@@ -5,3 +5,7 @@ application.linux64
 application.windows32
 application.windows64
 application.macosx
+out/production/ws2c-zelda/Field.class
+out/production/ws2c-zelda/Link$Arrow.class
+out/production/ws2c-zelda/Link.class
+out/production/ws2c-zelda/main.class

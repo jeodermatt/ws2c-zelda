@@ -24,7 +24,6 @@ public class main extends PApplet {
         clear();
         stroke(0);
         fill(255,0,255);
-        ellipse(width/2, height/2, 100, 100);
         link.paint();
     }
 }
