@@ -51,13 +51,94 @@ public class Link extends PApplet{
         }
         field.keyCode = 0;
         field.key = 0;
-        field.ellipse(x, y, 10, 10);
         for (Arrow arr : arrows){
             arr.paint();
         }
         if(cooldown > 0) cooldown--;
-        field.text("Cooldown: "+cooldown, 10,20);
-        field.text("Hearts: "+hearts, 10,40);
+        cooldown();
+        hearts();
+        body();
+    }
+
+    /**
+     * draw cooldown
+     */
+    public void cooldown(){
+        int start = 15;
+        int cx = 5;
+        int cy = 10;
+        int rs = 5;
+
+        for(int i = 1; i < cooldown/rs; i++){
+            field.rect(start+cx*i, cy, rs, rs);
+        }
+    }
+
+    /**
+     * draw hearts
+     */
+    public void hearts(){
+        field.fill(255,0,0);
+        int hx = 30;
+        int hy = 40;
+        int rs = 5;
+        for(int i = 1; i <= hearts; i++){
+            field.rect(i*hx, hy, rs, rs);
+            field.rect(i*hx, hy + rs, rs, rs);
+            field.rect(i*hx, hy - rs, rs, rs);
+            field.rect(i*hx + rs, hy - rs, rs, rs);
+            field.rect(i*hx - rs, hy - rs, rs, rs);
+            field.rect(i*hx + rs, hy - 2*rs, rs, rs);
+            field.rect(i*hx - rs, hy - 2*rs, rs, rs);
+            field.rect(i*hx + 2*rs, hy - rs, rs, rs);
+            field.rect(i*hx - 2*rs, hy - rs, rs, rs);
+            field.rect(i*hx + rs, hy, rs, rs);
+            field.rect(i*hx - rs, hy, rs, rs);
+        }
+    }
+
+    /**
+     * draw body
+     */
+    public void body(){
+        // size of pixels
+        int rs = 5;
+
+        // color of clothing
+        field.fill(0,200,0);
+
+        // upper body
+        field.rect(x, y, rs, rs);
+        field.rect(x-rs, y, rs, rs);
+        field.rect(x+rs, y+rs, rs, rs);
+        field.rect(x, y+rs, rs, rs);
+        field.rect(x-rs, y+rs, rs, rs);
+        field.rect(x-rs*2, y+rs, rs, rs);
+        field.rect(x, y+rs*2, rs, rs);
+        field.rect(x+rs, y+rs*2, rs, rs);
+        field.rect(x-rs, y+rs*2, rs, rs);
+        field.rect(x-rs*2, y+rs*2, rs, rs);
+        field.rect(x, y+rs*3, rs, rs);
+        field.rect(x+rs, y+rs*3, rs, rs);
+        field.rect(x-rs, y+rs*3, rs, rs);
+        field.rect(x-rs*2, y+rs*3, rs, rs);
+
+        //hat
+        field.rect(x-rs*2, y-rs*4, rs, rs);
+        field.rect(x-rs, y-rs*4, rs, rs);
+        field.rect(x-rs*2, y-rs, rs, rs);
+
+        // color of hair
+        field.fill(200,100,0);
+        field.rect(x-rs, y-rs*3, rs, rs);
+        field.rect(x, y-rs*3, rs, rs);
+
+        // color of skin
+        field.fill(200,150,0);
+        field.rect(x-rs, y-rs, rs, rs);
+        field.rect(x, y-rs, rs, rs);
+        field.rect(x-rs, y-rs*2, rs, rs);
+        field.rect(x, y-rs*2, rs, rs);
     }
 
     public class Arrow extends Thread{
