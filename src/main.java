@@ -11,7 +11,7 @@ public class main extends PApplet {
     }
 
     public void settings(){
-        size(800,600);
+        size(600,400);
     }
 
     public void setup(){
@@ -23,7 +23,6 @@ public class main extends PApplet {
         background(255);
         clear();
         stroke(0);
-        fill(255,0,255);
         link.paint();
     }
 }

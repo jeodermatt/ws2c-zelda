@@ -31,19 +31,23 @@ public class Link extends PApplet{
     }
 
     /**
-     *
+     * paint Link
      *
      */
     public void paint(){
-        switch(field.keyCode){
-            case UP:    y = y - SPEED;
-                        break;
-            case DOWN:  y = y + SPEED;
-                        break;
-            case RIGHT: x = x + SPEED;
-                        break;
-            case LEFT:  x = x - SPEED;
-                        break;
+        switch(field.keyCode) {
+            case UP:
+                if(0 < y - SPEED) y = y - SPEED;
+                break;
+            case DOWN:
+                if(field.height > y + SPEED) y = y + SPEED;
+                break;
+            case RIGHT:
+                if(field.width > x + SPEED) x = x + SPEED;
+                break;
+            case LEFT:
+                if(0 < x - SPEED) x = x - SPEED;
+                break;
         }
 
         switch(field.key){
@@ -115,18 +119,16 @@ public class Link extends PApplet{
         field.rect(x-rs, y+rs, rs, rs);
         field.rect(x-rs*2, y+rs, rs, rs);
         field.rect(x, y+rs*2, rs, rs);
-        field.rect(x+rs, y+rs*2, rs, rs);
         field.rect(x-rs, y+rs*2, rs, rs);
-        field.rect(x-rs*2, y+rs*2, rs, rs);
         field.rect(x, y+rs*3, rs, rs);
-        field.rect(x+rs, y+rs*3, rs, rs);
         field.rect(x-rs, y+rs*3, rs, rs);
-        field.rect(x-rs*2, y+rs*3, rs, rs);
+
 
         //hat
         field.rect(x-rs*2, y-rs*4, rs, rs);
         field.rect(x-rs, y-rs*4, rs, rs);
-        field.rect(x-rs*2, y-rs, rs, rs);
+        field.rect(x-rs*2, y-rs*3, rs, rs);
+        field.rect(x-rs*2, y-rs*2, rs, rs);
 
         // color of hair
         field.fill(200,100,0);
@@ -137,8 +139,23 @@ public class Link extends PApplet{
         field.fill(200,150,0);
         field.rect(x-rs, y-rs, rs, rs);
         field.rect(x, y-rs, rs, rs);
+        field.rect(x+rs, y-rs*2, rs, rs);
         field.rect(x-rs, y-rs*2, rs, rs);
         field.rect(x, y-rs*2, rs, rs);
+        // hands
+        field.rect(x+rs*2, y+rs, rs, rs);
+        field.rect(x+rs*2, y, rs, rs);
+        field.rect(x-rs*3, y+rs, rs, rs);
+        field.rect(x-rs*3, y+rs*2, rs, rs);
+
+        //shoes
+        field.fill(200,50,0);
+        field.rect(x, y+rs*4, rs, rs);
+        field.rect(x-rs, y+rs*4, rs, rs);
+        field.rect(x+rs, y+rs*5, rs, rs);
+        field.rect(x-rs, y+rs*5, rs, rs);
+        field.rect(x+rs, y+rs*6, rs, rs);
+        field.rect(x-rs, y+rs*6, rs, rs);
     }
 
     public class Arrow extends Thread{
@@ -151,8 +168,18 @@ public class Link extends PApplet{
         }
 
         public void paint() {
-            x += 15;
-            field.ellipse(x, y, 10, 10);
+            x += 5;
+            int rs = 5;
+
+            // arrow skin
+            field.fill(200,100,0);
+            for(int i = 1; i <= 5; i++) {
+                field.rect(x+rs*i, y, rs, rs);
+            }
+            field.fill(155,100,100);
+            field.rect(x+rs*2, y, rs, rs);
+            field.rect(x+rs*2, y-rs, rs, rs);
+            field.rect(x+rs*2, y+rs, rs, rs);
         }
     }
 }
