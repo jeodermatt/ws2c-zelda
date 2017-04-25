@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Link extends PApplet{
     int hearts = 3; // remaining lives of link
-    final int SPEED = 15; // speed of link
+    final int SPEED = 40; // speed of link
     int x = 100; // x-coordinate
     int y = 100; // y-coordinate
     int cooldown = 0;
