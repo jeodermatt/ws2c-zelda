@@ -5,6 +5,7 @@ import processing.core.PApplet;
 
 public class main extends PApplet {
     Link link = new Link(this);
+    Field field = new Field(this);
 
     public static void main(String[] args){
         PApplet.main("main", args);
@@ -16,12 +17,12 @@ public class main extends PApplet {
 
     public void setup(){
         background(255);
-
     }
 
     public void draw(){
-        background(255);
         clear();
+
+        field.paint();
         stroke(0);
         link.paint();
     }
