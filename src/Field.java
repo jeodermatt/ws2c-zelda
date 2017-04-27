@@ -5,10 +5,12 @@ import processing.core.PApplet;
 
 public class Field extends PApplet{
     PApplet field;
-    int gridSize = 40;
+    int gridSize;
+    int[][] colliders = new int[10][2];
 
-    public Field(PApplet field){
+    public Field(PApplet field, int gridSize){
         this.field = field;
+        this.gridSize = gridSize;
     }
 
     /**
@@ -26,4 +28,13 @@ public class Field extends PApplet{
         }
     }
 
+    public int[][] makeCollider() {
+        for (int i = 0; i < colliders.length; i++) {
+            colliders[i][0] = ((int)random(0, field.width/gridSize))*gridSize;
+            colliders[i][1] = ((int)random(0, field.width/gridSize))*gridSize;;
+            field.fill(255);
+            field.rect(colliders[i][0],colliders[i][1], gridSize, gridSize);
+        }
+        return this.colliders;
+    }
 }
