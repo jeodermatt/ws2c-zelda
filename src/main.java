@@ -18,17 +18,15 @@ public class main extends PApplet {
     }
 
     public void setup(){
-
-        background(255);
-        field.paint();
         colliders = field.makeCollider();
+        background(255);
     }
 
     public void draw(){
-        //clear();
-
+        clear();
 
         stroke(0);
+        field.paint();
         link.paint();
     }
 }

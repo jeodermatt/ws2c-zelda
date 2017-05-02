@@ -26,14 +26,16 @@ public class Field extends PApplet{
                 field.rect(i*gridSize, k*gridSize, gridSize, gridSize);
             }
         }
+        for (int i = 0; i < colliders.length; i++) {
+            field.fill(255);
+            field.rect(colliders[i][0],colliders[i][1], gridSize, gridSize);
+        }
     }
 
     public int[][] makeCollider() {
         for (int i = 0; i < colliders.length; i++) {
             colliders[i][0] = ((int)random(0, field.width/gridSize))*gridSize;
             colliders[i][1] = ((int)random(0, field.width/gridSize))*gridSize;;
-            field.fill(255);
-            field.rect(colliders[i][0],colliders[i][1], gridSize, gridSize);
         }
         return this.colliders;
     }
