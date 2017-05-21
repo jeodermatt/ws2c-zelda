@@ -5,6 +5,7 @@ import processing.core.PApplet;
 
 public class main extends PApplet {
     Link link = new Link(this);
+    Dragon dragon = new Dragon (this);
     int gridSize = 40;
     Field field = new Field(this, gridSize);
     int[][] colliders = new int[10][2];
@@ -28,5 +29,6 @@ public class main extends PApplet {
         stroke(0);
         field.paint();
         link.paint();
+        dragon.paint();
     }
 }
