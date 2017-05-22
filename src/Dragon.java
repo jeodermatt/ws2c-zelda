@@ -13,12 +13,14 @@ public class Dragon extends PApplet{
     int x = 500;
     int y = 200;
     int cooldown = 0;
+    int gridSize;
     PApplet field;
     ArrayList< Fire > fireballs = new ArrayList<Fire>();
 
 
-    public Dragon (PApplet field) {
+    public Dragon (PApplet field, int gridSize) {
         this.field = field;
+        this.gridSize = gridSize;
     }
 
     public void attack(){
@@ -29,25 +31,44 @@ public class Dragon extends PApplet{
         }
     }
 
+    public boolean checkCollider(int[][] colliders, int key) {
+        boolean freeToWalk = true;
+        for(int i = 0; i < colliders.length; i++) {
+            if (key == UP && y > colliders[i][1]+gridSize && y < colliders[i][1]+gridSize*2 && x > colliders[i][0] && x < colliders[i][0]+gridSize) {
+                freeToWalk = false;
+            }
+            if (key == DOWN && y < colliders[i][1] && y > colliders[i][1]-gridSize && x > colliders[i][0] && x < colliders[i][0]+gridSize) {
+                freeToWalk = false;
+            }
+            if (key == LEFT && x > colliders[i][0]+gridSize && x < colliders[i][0]+gridSize*2 && y > colliders[i][1] && y < colliders[i][1]+gridSize) {
+                freeToWalk = false;
+            }
+            if (key == RIGHT && x < colliders[i][0] && x > colliders[i][0]-gridSize && y > colliders[i][1] && y < colliders[i][1]+gridSize) {
+                freeToWalk = false;
+            }
+        }
 
-    public void paint() {
+        return freeToWalk;
+    }
+
+
+    public void paint(int[][] colliders) {
         // Random Movement: up = 0, right = 1, down = 2, left = 3
         Random random = new Random();
         //Random zahlrange habe ich auf 50 gestellt um quasi ein Timeout zu kreieren  => muss gefixet werden.
         int n = random.nextInt(100);
         switch (n) {
             case 0:
-                if (0 < y - SPEED) y = y - SPEED;
+                if (0 < y - SPEED && checkCollider(colliders, UP)) y = y - SPEED;
                 break;
             case 1:
-                if (field.width-50 > x + SPEED) x = x + SPEED;
+                if (field.width-50 > x + SPEED && checkCollider(colliders, DOWN)) x = x + SPEED;
                 break;
             case 2:
-                if (field.height-50 > y + SPEED) y = y + SPEED;
+                if (field.height-50 > y + SPEED && checkCollider(colliders, RIGHT)) y = y + SPEED;
                 break;
-
             case 3:
-                if (400 < x - SPEED) x = x - SPEED;
+                if (400 < x - SPEED && checkCollider(colliders, LEFT)) x = x - SPEED;
                 break;
         }
         // random attack: attack = 1, no attack = 0
