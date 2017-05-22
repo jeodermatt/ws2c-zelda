@@ -161,6 +161,7 @@ public class Link extends PApplet{
     public class Arrow extends Thread{
         int x;
         int y;
+        boolean alreadyHit;
 
         public Arrow(int x, int y){
             this.x = x;
