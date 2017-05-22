@@ -11,12 +11,13 @@ public class Link extends PApplet{
     int x = 100; // x-coordinate
     int y = 100; // y-coordinate
     int cooldown = 0;
+    int gridSize;
     PApplet field;
     ArrayList<Arrow> arrows = new ArrayList<>();
 
 
-    public Link(PApplet field){
-        this.field = field;
+    public Link(PApplet field, int gridSize){
+        this.field = field; this.gridSize = gridSize;
     }
 
     /**
@@ -34,21 +35,41 @@ public class Link extends PApplet{
      * paint Link
      *
      */
-    public void paint(){
+    public boolean checkCollider(int[][] colliders, int key) {
+        boolean freeToWalk = true;
+        for(int i = 0; i < colliders.length; i++) {
+            if (key == UP && y > colliders[i][1]+gridSize && y < colliders[i][1]+gridSize*2 && x > colliders[i][0] && x < colliders[i][0]+gridSize) {
+                freeToWalk = false;
+            }
+            if (key == DOWN && y < colliders[i][1] && y > colliders[i][1]-gridSize && x > colliders[i][0] && x < colliders[i][0]+gridSize) {
+                freeToWalk = false;
+            }
+            if (key == LEFT && x > colliders[i][0]+gridSize && x < colliders[i][0]+gridSize*2 && y > colliders[i][1] && y < colliders[i][1]+gridSize) {
+                freeToWalk = false;
+            }
+            if (key == RIGHT && x < colliders[i][0] && x > colliders[i][0]-gridSize && y > colliders[i][1] && y < colliders[i][1]+gridSize) {
+                freeToWalk = false;
+            }
+        }
+
+        return freeToWalk;
+    }
+    public void paint(int[][] colliders){
         switch(field.keyCode) {
             case UP:
-                if(0 < y - SPEED) y = y - SPEED;
+                if (0 < y - SPEED && checkCollider(colliders, UP)) y = y - SPEED;
                 break;
             case DOWN:
-                if(field.height > y + SPEED) y = y + SPEED;
+                if (field.height > y + SPEED && checkCollider(colliders, DOWN)) y = y + SPEED;
                 break;
             case RIGHT:
-                if(field.width > x + SPEED) x = x + SPEED;
+                if (field.width > x + SPEED && checkCollider(colliders, RIGHT)) x = x + SPEED;
                 break;
             case LEFT:
-                if(0 < x - SPEED) x = x - SPEED;
+                if (0 < x - SPEED && checkCollider(colliders, LEFT)) x = x - SPEED;
                 break;
         }
+
 
         switch(field.key){
             case ' ': attack();
@@ -62,6 +83,7 @@ public class Link extends PApplet{
         cooldown();
         hearts();
         body();
+        //field.rect(x,y,5,5);
     }
 
     /**
