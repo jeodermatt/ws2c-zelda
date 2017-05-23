@@ -178,6 +178,7 @@ public class Dragon extends PApplet{
     public class Fire extends Thread{
         int x;
         int y;
+        boolean alreadyHit;
 
         public Fire (int x, int y){
             this.x=x;

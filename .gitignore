@@ -12,3 +12,13 @@ out/production/ws2c-zelda/main.class
 .metadata
 *.
 RemoteSystemsTempFiles
+.idea/libraries/core.xml
+.idea/misc.xml
+.idea/workspace.xml
+output/Dragon$Fire.class
+output/Dragon.class
+output/Field.class
+output/Link$Arrow.class
+output/Link.class
+output/main.class
+ws2c-zelda.iml
