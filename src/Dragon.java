@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Dragon extends PApplet{
 
-    int hearts = 7;
+    int hearts = 1;
     final int SPEED = 40;
     int x = 500;
     int y = 200;

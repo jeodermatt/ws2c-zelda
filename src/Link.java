@@ -83,7 +83,7 @@ public class Link extends PApplet{
         cooldown();
         hearts();
         body();
-        //field.rect(x,y,5,5);
+
     }
 
     /**
@@ -191,7 +191,7 @@ public class Link extends PApplet{
         }
 
         public void paint() {
-            x += 5;
+            x += 10;
             int rs = 5;
 
             // arrow skin

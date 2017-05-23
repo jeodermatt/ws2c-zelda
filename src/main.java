@@ -9,7 +9,7 @@ public class main extends PApplet {
     Link link = new Link(this, gridSize);
     Field field = new Field(this, gridSize);
     int[][] colliders = new int[10][2];
-    int level = 1;
+    public int level = 1;
     boolean gameOver = false;
 
     public static void main(String[] args){
@@ -28,7 +28,15 @@ public class main extends PApplet {
     public void draw(){
         clear();
         if(!gameOver) {
-            if(level == 1) {
+            if(level == 4){
+                fill(255);
+                textSize(26);
+                textAlign(CENTER);
+                text("You won! \nPress Spacebar to Restart", 300, 200);
+                switch(key){
+                    case ' ': reset(); level = 1;
+                }
+            }else{
                 stroke(0);
                 field.paint();
                 link.paint(colliders);
@@ -38,14 +46,6 @@ public class main extends PApplet {
                 fill(255);
                 text("Level " + level, 300, 50);
                 checkIfHit();
-            }else{ // todo: next level!
-                fill(255);
-                textSize(26);
-                textAlign(CENTER);
-                text("You won! \nPress Spacebar to Restart", 300, 200);
-                switch(key){
-                    case ' ': reset();
-                }
             }
         }else{
             fill(255);
@@ -53,14 +53,14 @@ public class main extends PApplet {
             textAlign(CENTER);
             text("Game Over \nPress Spacebar to Restart", 300, 200);
             switch(key){
-                case ' ': reset();
+                case ' ': reset(); level = 1;
             }
         }
     }
 
     public void reset(){
         link.hearts = 3;
-        dragon.hearts = 7;
+        dragon.hearts = (int) Math.pow(2, level);
         link.x = 100;
         link.y = 100;
         link.arrows.clear();
@@ -69,9 +69,9 @@ public class main extends PApplet {
         dragon.y = 200;
         dragon.cooldown = 0;
         dragon.fireballs.clear();
+        field.numberOfColliders = (int) Math.pow(3, level);
         colliders = field.makeCollider();
         gameOver = false;
-        level = 1;
     }
 
     public void checkIfHit(){
@@ -98,7 +98,11 @@ public class main extends PApplet {
         }
 
         if(link.hearts == 0) gameOver = true;
-        if(dragon.hearts == 0) level++;
+        if(dragon.hearts == 0){
+            level++;
+            reset();
+        }
+
 
     }
 }
