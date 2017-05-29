@@ -9,7 +9,7 @@ public class main extends PApplet {
     Link link = new Link(this, gridSize);
     Field field = new Field(this, gridSize);
     int[][] colliders = new int[10][2];
-    public int level = 1;
+    public static int level = 1;
     boolean gameOver = false;
 
     public static void main(String[] args){
@@ -23,6 +23,7 @@ public class main extends PApplet {
     public void setup(){
         colliders = field.makeCollider();
         background(255);
+        frameRate(60);
     }
 
     public void draw(){

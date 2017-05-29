@@ -18,12 +18,14 @@ public class Dragon extends PApplet{
     ArrayList< Fire > fireballs = new ArrayList<Fire>();
 
 
+
     public Dragon (PApplet field, int gridSize) {
         this.field = field;
         this.gridSize = gridSize;
     }
 
     public void attack(){
+
         if( cooldown == 0 ){
             Fire fireball = new Fire(x,y);
             fireballs.add(fireball);
@@ -72,8 +74,11 @@ public class Dragon extends PApplet{
                 break;
         }
         // random attack: attack = 1, no attack = 0
-        int m = random.nextInt(1);
-        switch (n) {
+        int m = random.nextInt(20 );
+        if(main.level==2 || main.level==4){
+            m = random.nextInt(5);
+        }
+        switch (m) {
             case 1:
                 attack();
         }
@@ -117,7 +122,18 @@ public class Dragon extends PApplet{
         int rs = 5;
 
         // color of clothing
-        field.fill(34,139,34);
+        if(main.level==1) {
+            field.fill(34, 139, 34);
+        }
+        if(main.level==2) {
+            field.fill(43, 0, 255);
+        }
+        if(main.level==3) {
+            field.fill(255, 205, 0);
+        }
+        if(main.level==4) {
+            field.fill(255, 0, 0);
+        }
 
         // upper body
         field.rect(x,y,rs,rs);
@@ -178,24 +194,34 @@ public class Dragon extends PApplet{
     public class Fire extends Thread{
         int x;
         int y;
+        int y1;
+        int y2;
         boolean alreadyHit;
 
         public Fire (int x, int y){
             this.x=x;
             this.y=y;
+            this.y1=y;
+            this.y2=y;
+
         }
         public void paint(){
 
             x-=5;
+            y1-=1;
+            y2+=1;
+
             int rs=10;
 
             // fire skin
             field.fill(255,0,0);
 
             field.ellipse(x-rs,y,rs,rs);
-            field.ellipse(x-rs,y,rs,rs);
-            field.ellipse(x-rs,y,rs,rs);
 
+            if(main.level>2) {
+                field.ellipse(x - rs, y1, rs, rs);
+                field.ellipse(x - rs, y2, rs, rs);
+            }
 
 
         }
