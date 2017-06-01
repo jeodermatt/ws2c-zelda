@@ -1,13 +1,14 @@
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Mathieu on 24.04.2017.
  */
 public class Link extends PApplet{
     int hearts = 3; // remaining lives of link
-    final int SPEED = 40; // speed of link
+    final int SPEED = 25; // speed of link
     int x = 100; // x-coordinate
     int y = 100; // y-coordinate
     int cooldown = 0;
@@ -21,7 +22,7 @@ public class Link extends PApplet{
     }
 
     /**
-     *
+     * Shoots Arrow
      */
     public void attack(){
         if(cooldown == 0) {
@@ -32,7 +33,32 @@ public class Link extends PApplet{
     }
 
     /**
-     * paint Link
+     * Check if arrow hits colliders
+     * @param colliders
+     */
+    public void checkArrowCollision(int[][] colliders) {
+        Iterator<Arrow> arr = arrows.iterator();
+
+        while (arr.hasNext()) {
+            Arrow a = arr.next();
+            int y = a.y;
+            int x = a.x;
+            System.out.println(x + " " + y);
+            for (int i = 0; i < colliders.length; i++) {
+                if (y < colliders[i][1] + gridSize && y > colliders[i][1] && x > colliders[i][0] - gridSize && x < colliders[i][0] + gridSize) {
+                    arr.remove();
+                    break;
+                }
+                if(x > field.width){
+                    arr.remove();
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * check if link hits colliders
      *
      */
     public boolean checkCollider(int[][] colliders, int key) {
@@ -54,6 +80,11 @@ public class Link extends PApplet{
 
         return freeToWalk;
     }
+
+    /**
+     * paint link
+     * @param colliders
+     */
     public void paint(int[][] colliders){
         switch(field.keyCode) {
             case UP:
@@ -76,6 +107,7 @@ public class Link extends PApplet{
         }
         field.keyCode = 0;
         field.key = 0;
+        checkArrowCollision(colliders);
         for (Arrow arr : arrows){
             arr.paint();
         }
@@ -180,7 +212,10 @@ public class Link extends PApplet{
         field.rect(x-rs, y+rs*6, rs, rs);
     }
 
-    public class Arrow extends Thread{
+    /**
+     * arrow of link
+     */
+    public class Arrow{
         int x;
         int y;
         boolean alreadyHit;

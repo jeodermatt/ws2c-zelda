@@ -4,6 +4,7 @@
 import processing.core.PApplet;
 import java.util.ArrayList;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Dragon extends PApplet{
@@ -24,15 +25,30 @@ public class Dragon extends PApplet{
         this.gridSize = gridSize;
     }
 
+    /**
+     * shoot fireball
+     */
     public void attack(){
 
         if( cooldown == 0 ){
-            Fire fireball = new Fire(x,y);
+            if(main.level>2) {
+                Fire fireballU = new Fire(x,y, Direction.UP);
+                fireballs.add(fireballU);
+                Fire fireballD = new Fire(x,y, Direction.DOWN);
+                fireballs.add(fireballD);
+            }
+            Fire fireball = new Fire(x,y, Direction.CENTER);
             fireballs.add(fireball);
             cooldown = 100;
         }
     }
 
+    /**
+     * check if dragon hits colliders
+     * @param colliders
+     * @param key
+     * @return
+     */
     public boolean checkCollider(int[][] colliders, int key) {
         boolean freeToWalk = true;
         for(int i = 0; i < colliders.length; i++) {
@@ -53,11 +69,40 @@ public class Dragon extends PApplet{
         return freeToWalk;
     }
 
+    /**
+     * check if fire hits colliders
+     * @param colliders
+     */
+    public void checkFireCollision(int[][] colliders) {
+        Iterator<Fire> fireball = fireballs.iterator();
 
+        while (fireball.hasNext()) {
+            Fire f = fireball.next();
+            int y = f.y;
+            int x = f.x;
+            for (int i = 0; i < colliders.length; i++) {
+                if (y < colliders[i][1] + gridSize && y > colliders[i][1] - gridSize && x > colliders[i][0] - gridSize && x < colliders[i][0] + gridSize) {
+                    fireball.remove();
+                    break;
+                }
+
+                if (x < 0) {
+                    fireball.remove();
+                    break;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * paint the dragon
+     * @param colliders
+     */
     public void paint(int[][] colliders) {
         // Random Movement: up = 0, right = 1, down = 2, left = 3
         Random random = new Random();
-        //Random zahlrange habe ich auf 50 gestellt um quasi ein Timeout zu kreieren  => muss gefixet werden.
+
         int n = random.nextInt(100);
         switch (n) {
             case 0:
@@ -82,7 +127,7 @@ public class Dragon extends PApplet{
             case 1:
                 attack();
         }
-
+        checkFireCollision(colliders);
         for (Fire fireball : fireballs) {
             fireball.paint();
         }
@@ -190,41 +235,49 @@ public class Dragon extends PApplet{
 
     }
 
+    public enum Direction{
+        CENTER,
+        UP,
+        DOWN
+    }
 
-    public class Fire extends Thread{
+    /**
+     * fireball of dragon
+     */
+    public class Fire{
         int x;
         int y;
-        int y1;
-        int y2;
         boolean alreadyHit;
+        Direction dir = Direction.CENTER;
 
-        public Fire (int x, int y){
+        public Fire (int x, int y, Direction dir){
             this.x=x;
             this.y=y;
-            this.y1=y;
-            this.y2=y;
-
+            this.dir = dir;
         }
-        public void paint(){
+        public void paint() {
 
-            x-=5;
-            y1-=1;
-            y2+=1;
-
-            int rs=10;
+            x -= 5;
+            int rs = 10;
 
             // fire skin
-            field.fill(255,0,0);
+            field.fill(255, 0, 0);
 
-            field.ellipse(x-rs,y,rs,rs);
-
-            if(main.level>2) {
-                field.ellipse(x - rs, y1, rs, rs);
-                field.ellipse(x - rs, y2, rs, rs);
+            switch(dir) {
+                case CENTER:
+                    field.ellipse(x - rs, y, rs, rs);
+                    break;
+                case UP:
+                    y += 1;
+                    field.ellipse(x - rs, y, rs, rs);
+                    break;
+                case DOWN:
+                    y -= 1;
+                    field.ellipse(x - rs, y, rs, rs);
+                    break;
             }
-
-
         }
+
     }
 
 }

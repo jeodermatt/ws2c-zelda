@@ -50,6 +50,10 @@ public class Field extends PApplet{
         }
     }
 
+    /**
+     * create random colliders
+     * @return
+     */
     public int[][] makeCollider() {
         colliders = new int[numberOfColliders][2];
         for (int i = 0; i < colliders.length; i++) {

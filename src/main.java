@@ -35,7 +35,7 @@ public class main extends PApplet {
                 textAlign(CENTER);
                 text("You won! \nPress Spacebar to Restart", 300, 200);
                 switch(key){
-                    case ' ': reset(); level = 1;
+                    case ' ': level = 1; reset();
                 }
             }else{
                 stroke(0);
@@ -79,7 +79,7 @@ public class main extends PApplet {
         // check if dragon hit by arrow
         for(Link.Arrow arr : link.arrows){
             if(arr.x > (dragon.x - 25) && arr.x < (dragon.x + 25)
-                && arr.y > (dragon.y) && (arr.y < dragon.y + 25) && !arr.alreadyHit){
+                && arr.y > (dragon.y-10) && (arr.y < dragon.y + 40) && !arr.alreadyHit){
                 // decrease dragon hearts
                 dragon.hearts--;
                 // arrow hit dragon
