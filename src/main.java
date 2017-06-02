@@ -100,7 +100,7 @@ public class main extends PApplet {
             }
         }
 
-        if(link.hearts == 0) gameOver = true;
+        if(link.hearts <= 0) gameOver = true;
         if(dragon.hearts == 0){
             level++;
             reset();
