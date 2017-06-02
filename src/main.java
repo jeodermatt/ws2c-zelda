@@ -2,6 +2,7 @@
  * Created by Mathieu on 24.04.2017.
  */
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class main extends PApplet {
     int gridSize = 40;
@@ -11,6 +12,7 @@ public class main extends PApplet {
     int[][] colliders = new int[10][2];
     public static int level = 1;
     boolean gameOver = false;
+    PImage img;
 
     public static void main(String[] args){
         PApplet.main("main", args);
@@ -54,7 +56,7 @@ public class main extends PApplet {
             textAlign(CENTER);
             text("Game Over \nPress Spacebar to Restart", 300, 200);
             switch(key){
-                case ' ': reset(); level = 1;
+                case ' ':  level = 1; reset();
             }
         }
     }
