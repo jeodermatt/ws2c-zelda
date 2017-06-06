@@ -6,7 +6,7 @@ import processing.core.PApplet;
 public class Field extends PApplet{
     main field;
     int gridSize;
-    int numberOfColliders = 2;
+    int numberOfColliders=2;
     int[][] colliders = new int[numberOfColliders][2];
 
     public Field(main field, int gridSize){
@@ -57,8 +57,8 @@ public class Field extends PApplet{
     public int[][] makeCollider() {
         colliders = new int[numberOfColliders][2];
         for (int i = 0; i < colliders.length; i++) {
-            colliders[i][0] = ((int)random(0, field.width/gridSize))*gridSize;
-            colliders[i][1] = ((int)random(0, field.width/gridSize))*gridSize;
+            colliders[i][0] = ((int)random(0, field.width/gridSize))*(gridSize);
+            colliders[i][1] = ((int)random(0, field.width/gridSize))*(gridSize);
         }
         return this.colliders;
     }

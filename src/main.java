@@ -13,6 +13,9 @@ public class main extends PApplet {
     public static int level = 1;
     boolean gameOver = false;
     PImage img;
+    PImage img2;
+    boolean start = false;
+
 
     public static void main(String[] args){
         PApplet.main("main", args);
@@ -22,41 +25,61 @@ public class main extends PApplet {
         size(600,400);
     }
 
-    public void setup(){
+    public void setup() {
         colliders = field.makeCollider();
         background(255);
         frameRate(60);
+        img = loadImage("Image.png");
+        img2 = loadImage("win.png");
+
     }
 
-    public void draw(){
-        clear();
-        if(!gameOver) {
-            if(level == 4){
-                fill(255);
-                textSize(26);
-                textAlign(CENTER);
-                text("You won! \nPress Spacebar to Restart", 300, 200);
-                switch(key){
-                    case ' ': level = 1; reset();
-                }
-            }else{
-                stroke(0);
-                field.paint();
-                link.paint(colliders);
-                dragon.paint(colliders);
-                textSize(26);
-                textAlign(CENTER);
-                fill(255);
-                text("Level " + level, 300, 50);
-                checkIfHit();
-            }
-        }else{
-            fill(255);
+    public void draw() {
+        if (!start) {
+            image(img, 0, 0);
             textSize(26);
             textAlign(CENTER);
-            text("Game Over \nPress Spacebar to Restart", 300, 200);
-            switch(key){
-                case ' ':  level = 1; reset();
+            text("Press Spacebar to start the game", 300, 350);
+            switch (key) {
+                case ' ': start=true;
+
+
+            }
+        } else {
+            clear();
+            if (!gameOver) {
+                if (level == 4) {
+                    image(img2,0,0);
+                    textSize(26);
+                    textAlign(CENTER);
+                    text("You won! \nPress Spacebar to Restart", 300, 350);
+                    switch (key) {
+                        case ' ':
+                            level = 1;
+                            reset();
+                    }
+                } else {
+                    stroke(0);
+                    field.paint();
+                    link.paint(colliders);
+                    dragon.paint(colliders);
+                    textSize(26);
+                    textAlign(CENTER);
+                    fill(255);
+                    text("Level " + level, 300, 50);
+                    checkIfHit();
+                }
+            } else {
+                image(img, 0, 0);
+                textSize(26);
+                textAlign(CENTER);
+                text("Game Over \nPress Spacebar to Restart", 300, 300);
+
+                switch (key) {
+                    case ' ':
+                        level = 1;
+                        reset();
+                }
             }
         }
     }
@@ -72,7 +95,14 @@ public class main extends PApplet {
         dragon.y = 200;
         dragon.cooldown = 0;
         dragon.fireballs.clear();
-        field.numberOfColliders = (int) Math.pow(3, level);
+        if(level == 1){
+            field.numberOfColliders = (int) Math.pow(3, 3);
+        }else if(level ==2){
+            field.numberOfColliders = (int) Math.pow(3, 2);
+        }else if(level ==3){
+            field.numberOfColliders = (int) Math.pow(3, 1);
+        }
+
         colliders = field.makeCollider();
         gameOver = false;
     }
