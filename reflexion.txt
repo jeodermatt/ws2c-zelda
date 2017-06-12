@@ -2,13 +2,12 @@
 
 Besonders stolz:
 - Pixelgrafik
-- Levels waren schneller da, als wir gedacht haben
 - Keine Probleme mit Git
 - Teamwork
 
 Besonders schwierig:
-- Wo wird gezeichnet, um nichts zu überschreiben
+- Zeichnungen nicht zu überschreiben
 - Collider
 
 Was wir ändern würden:
-- "Randomness" der Bewegung des Drachens --> Intelligenter bauen
+- "Randomness" der Bewegung des Drachens intelligenter bauen
